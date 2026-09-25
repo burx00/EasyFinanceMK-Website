@@ -1,0 +1,529 @@
+<!DOCTYPE html>
+<html lang="mk">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>За нас — EasyFinance</title>
+  <meta name="description" content="Сигурен кредит без ризик. Онлајн аплицирање со јасни и транспарентни услови.">
+
+  <!-- Inter Font -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+
+  <style>
+    :root {
+      --primary: #0052FF;
+      --primary-hover: #003ECC;
+      --primary-light: #EEF4FF;
+      --primary-glow: rgba(0, 82, 255, 0.15);
+      --accent: #00B050;
+      --accent-light: #E6F8EF;
+      --bg-body: #F8FAFC;
+      --bg-card: #FFFFFF;
+      --border-light: #E2E8F0;
+      --border-hover: #CBD5E1;
+      --text-main: #0F172A;
+      --text-muted: #64748B;
+      --white: #FFFFFF;
+      --radius: 16px;
+      --shadow-sm: 0 4px 6px -1px rgba(0, 0, 0, 0.05), 0 2px 4px -1px rgba(0, 0, 0, 0.03);
+      --shadow-lg: 0 20px 25px -5px rgba(0, 0, 0, 0.06), 0 10px 10px -5px rgba(0, 0, 0, 0.02);
+      --transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    html {
+      scroll-behavior: smooth;
+      font-family: 'Inter', system-ui, -apple-system, sans-serif;
+      background-color: var(--bg-body);
+      color: var(--text-main);
+    }
+
+    body {
+      overflow-x: hidden;
+      line-height: 1.6;
+    }
+
+    /* Ambient Glow Background Element */
+    .glow-bg {
+      position: absolute;
+      width: 700px;
+      height: 700px;
+      border-radius: 50%;
+      background: radial-gradient(circle, rgba(0, 82, 255, 0.08) 0%, rgba(248, 250, 252, 0) 70%);
+      top: -200px;
+      right: -200px;
+      z-index: 0;
+      pointer-events: none;
+      animation: pulseGlow 8s ease-in-out infinite alternate;
+    }
+
+    @keyframes pulseGlow {
+      0% { transform: scale(1) translate(0, 0); opacity: 0.7; }
+      100% { transform: scale(1.15) translate(-40px, 40px); opacity: 1; }
+    }
+
+    /* Container */
+    .container {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 24px;
+      position: relative;
+      z-index: 1;
+    }
+
+    /* Topbar */
+    .topbar {
+      background: #FFFFFF;
+      border-bottom: 1px solid var(--border-light);
+      font-size: 13px;
+      padding: 10px 0;
+    }
+
+    .topbar .container {
+      display: flex;
+      justify-content: flex-end;
+      gap: 24px;
+    }
+
+    .topbar a {
+      color: var(--text-muted);
+      text-decoration: none;
+      transition: var(--transition);
+    }
+
+    .topbar a:hover {
+      color: var(--primary);
+    }
+
+    .topbar strong {
+      color: var(--text-main);
+    }
+
+    /* Header Nav */
+    .site-header {
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      background: rgba(255, 255, 255, 0.85);
+      backdrop-filter: blur(16px);
+      border-bottom: 1px solid var(--border-light);
+      padding: 16px 0;
+      box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.02);
+    }
+
+    .nav-row {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      font-size: 22px;
+      font-weight: 800;
+      color: var(--text-main);
+      text-decoration: none;
+      letter-spacing: -0.5px;
+    }
+
+    .brand img {
+      height: 36px;
+      width: auto;
+    }
+
+    .main-nav {
+      display: flex;
+      gap: 32px;
+    }
+
+    .main-nav a {
+      color: var(--text-muted);
+      text-decoration: none;
+      font-weight: 500;
+      font-size: 15px;
+      transition: var(--transition);
+      position: relative;
+    }
+
+    .main-nav a:hover, .main-nav a.active {
+      color: var(--primary);
+    }
+
+    .main-nav a.active::after {
+      content: '';
+      position: absolute;
+      bottom: -6px;
+      left: 0;
+      width: 100%;
+      height: 2px;
+      background: var(--primary);
+      border-radius: 2px;
+    }
+
+    /* Mobile Nav */
+    .hamburger {
+      display: none;
+      background: none;
+      border: none;
+      cursor: pointer;
+      padding: 8px;
+    }
+
+    .hamburger span {
+      display: block;
+      width: 24px;
+      height: 2px;
+      background: var(--text-main);
+      margin: 5px 0;
+      transition: var(--transition);
+    }
+
+    .mobile-nav {
+      display: none;
+      background: #FFFFFF;
+      border-bottom: 1px solid var(--border-light);
+      padding: 24px;
+      box-shadow: var(--shadow-lg);
+    }
+
+    .mobile-nav a {
+      display: block;
+      padding: 12px 0;
+      color: var(--text-main);
+      text-decoration: none;
+      font-size: 18px;
+      border-bottom: 1px solid var(--border-light);
+    }
+
+    /* Buttons */
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      padding: 12px 24px;
+      border-radius: 12px;
+      font-weight: 600;
+      font-size: 15px;
+      text-decoration: none;
+      transition: var(--transition);
+      cursor: pointer;
+      border: none;
+    }
+
+    .btn-primary {
+      background: var(--primary);
+      color: var(--white);
+      box-shadow: 0 4px 14px var(--primary-glow);
+    }
+
+    .btn-primary:hover {
+      background: var(--primary-hover);
+      transform: translateY(-2px);
+      box-shadow: 0 6px 20px rgba(0, 82, 255, 0.25);
+    }
+
+    .btn-block {
+      width: 100%;
+    }
+
+    /* Page Hero */
+    .page-hero {
+      padding: 60px 0 40px;
+      position: relative;
+    }
+
+    .breadcrumb {
+      font-size: 14px;
+      color: var(--text-muted);
+      margin-bottom: 16px;
+    }
+
+    .breadcrumb a {
+      color: var(--primary);
+      text-decoration: none;
+    }
+
+    .page-hero h1 {
+      font-size: 42px;
+      font-weight: 800;
+      letter-spacing: -1px;
+      color: var(--text-main);
+      margin-bottom: 12px;
+    }
+
+    .page-hero p {
+      font-size: 18px;
+      color: var(--text-muted);
+      max-width: 680px;
+    }
+
+    /* Main Section Content */
+    .section {
+      padding: 40px 0 80px;
+    }
+
+    .card {
+      background: #FFFFFF;
+      border: 1px solid var(--border-light);
+      border-radius: var(--radius);
+      padding: 32px;
+      box-shadow: var(--shadow-sm);
+      transition: var(--transition);
+    }
+
+    .card.reveal p {
+      color: var(--text-muted);
+      font-size: 15px;
+      line-height: 1.7;
+    }
+
+    .card.reveal p + p {
+      margin-top: 16px;
+    }
+
+    .grid-2 {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 20px;
+      margin-top: 20px;
+    }
+
+    .grid-2 .card {
+      height: 100%;
+    }
+
+    .grid-2 .card:hover {
+      transform: translateY(-4px);
+      box-shadow: var(--shadow-lg);
+      border-color: var(--border-hover);
+    }
+
+    .grid-2 h3 {
+      font-size: 18px;
+      font-weight: 700;
+      color: var(--text-main);
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    /* Footer */
+    .site-footer {
+      background: #FFFFFF;
+      border-top: 1px solid var(--border-light);
+      padding: 80px 0 30px;
+      margin-top: 60px;
+    }
+
+    .footer-grid {
+      display: grid;
+      grid-template-columns: 2fr 1fr 1fr 1fr;
+      gap: 40px;
+      margin-bottom: 60px;
+    }
+
+    .footer-brand p {
+      color: var(--text-muted);
+      font-size: 14px;
+      margin-top: 16px;
+      max-width: 300px;
+    }
+
+    .footer-grid h4 {
+      font-size: 16px;
+      font-weight: 700;
+      margin-bottom: 20px;
+      color: var(--text-main);
+    }
+
+    .footer-grid a {
+      display: block;
+      color: var(--text-muted);
+      text-decoration: none;
+      margin-bottom: 12px;
+      font-size: 14px;
+      transition: var(--transition);
+    }
+
+    .footer-grid a:hover {
+      color: var(--primary);
+    }
+
+    .footer-bottom {
+      border-top: 1px solid var(--border-light);
+      padding-top: 30px;
+      display: flex;
+      justify-content: space-between;
+      color: var(--text-muted);
+      font-size: 13px;
+    }
+
+    /* Animation Reveal Effects */
+    .reveal {
+      opacity: 0;
+      transform: translateY(30px);
+      transition: transform 0.8s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+    .reveal.active {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    /* Responsive Layout */
+    @media (max-width: 768px) {
+      .main-nav {
+        display: none;
+      }
+      .hamburger {
+        display: block;
+      }
+      .grid-2 {
+        grid-template-columns: 1fr;
+      }
+      .footer-grid {
+        grid-template-columns: 1fr;
+      }
+      .footer-bottom {
+        flex-direction: column;
+        gap: 12px;
+      }
+      .page-hero h1 {
+        font-size: 32px;
+      }
+    }
+  </style>
+</head>
+<body>
+<div class="glow-bg"></div>
+
+<div class="topbar">
+  <div class="container">
+    <a href="tel:023113333"><strong>Аплицирање:</strong> 02/311-3333</a>
+    <a href="tel:023119999"><strong>Наплата:</strong> 02/311-9999</a>
+    <a href="mailto:info@easyfinance.mk">info@easyfinance.mk</a>
+  </div>
+</div>
+
+<header class="site-header">
+  <div class="container nav-row">
+    <a class="brand" href="index.html">
+      <img src="https://easyfinance.mk/Content/images/LogoWithoutText.png" alt="EasyFinance лого">
+      EasyFinance
+    </a>
+    <nav class="main-nav">
+      <a href="index.html">Почетна</a>
+      <a href="about.html" class="active">За нас</a>
+      <a href="information.html">Враќање на кредит</a>
+      <a href="questions.html">Најчести прашања</a>
+      <a href="contact.html">Контакт</a>
+    </nav>
+    <div style="display:flex; align-items:center; gap:10px;">
+      <a href="index.html#apply" class="btn btn-primary">Аплицирај</a>
+      <button class="hamburger" aria-label="Мени" id="menuToggle">
+        <span></span>
+        <span></span>
+        <span></span>
+      </button>
+    </div>
+  </div>
+  <div class="mobile-nav" id="mobileNav">
+    <div class="container">
+      <a href="index.html">Почетна</a>
+      <a href="about.html">За нас</a>
+      <a href="information.html">Враќање на кредит</a>
+      <a href="questions.html">Најчести прашања</a>
+      <a href="contact.html">Контакт</a>
+      <a href="index.html#apply" class="btn btn-primary btn-block" style="margin-top:15px;">Аплицирај</a>
+    </div>
+  </div>
+</header>
+
+<section class="page-hero">
+  <div class="container">
+    <div class="breadcrumb"><a href="index.html">Почетна</a> / За нас</div>
+    <h1>За нас</h1>
+    <p>Небанкарска финансиска институција, лиценцирано и регулирано од Министерството за финансии на Република Северна Македонија.</p>
+  </div>
+</section>
+
+<main>
+  <section class="section">
+    <div class="container" style="max-width: 860px;">
+      <div class="card reveal" style="margin-bottom:20px;">
+        <p>Финансиското друштво Еазу Фајнанс АД Скопје е небанкарска финансиска институција, со ЕДБ 4080018574550[cite: 2], и регистарски број од Правилникот за техничките и организациските мерки за обезбедување тајност и заштита на обработката на личните податоци бр. 2317[cite: 2].</p>
+        <p>Друштвото е лиценцирано и регистрирано од страна на Министерството за финансии на Р. Македонија на 07.06.2018 година, под број 13-4154/4, за извршување на следните финансиски услуги: одобрување кредити и факторинг[cite: 2].</p>
+      </div>
+
+      <div class="grid-2">
+        <div class="card reveal">
+          <h3 style="margin-bottom:8px;">🎯 Насока</h3>
+          <p style="margin:0; font-size:14px; color:var(--text-muted);">Насочени сме кон изнаоѓање решенија, нудејќи различни производи од микрокредитирање, хипотекарно кредитирање и факторинг[cite: 2].</p>
+        </div>
+        <div class="card reveal">
+          <h3 style="margin-bottom:8px;">💡 Развој</h3>
+          <p style="margin:0; font-size:14px; color:var(--text-muted);">Постојано разработуваме и интегрираме иновативни услуги кои се во чекор со брзиот развој на дигиталниот свет[cite: 2].</p>
+        </div>
+        <div class="card reveal">
+          <h3 style="margin-bottom:8px;">📱 Достапност</h3>
+          <p style="margin:0; font-size:14px; color:var(--text-muted);">Целосно онлајн аплицирање, аплицирање во нашите експозитури, како и преку нашите трговски партнери[cite: 2].</p>
+        </div>
+        <div class="card reveal">
+          <h3 style="margin-bottom:8px;">🤝 Пристап</h3>
+          <p style="margin:0; font-size:14px; color:var(--text-muted);">Транспарентност, флексибилност и индивидуален пристап за секој клиент, во насока на вистинско решение[cite: 2].</p>
+        </div>
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer class="site-footer">
+  <div class="container">
+    <div class="footer-grid">
+      <div class="footer-brand">
+        <a class="brand" href="index.html">
+          <img src="https://easyfinance.mk/Content/images/LogoWithoutText.png" alt="EasyFinance лого">
+          EasyFinance
+        </a>
+        <p>ФД Еазу Фајнанс АД Скопје — лиценцирано и регулирано од Министерството за финансии на Р. Северна Македонија[cite: 2].</p>
+      </div>
+      <div>
+        <h4>Навигација</h4>
+        <a href="index.html">Почетна</a>
+        <a href="about.html">За нас</a>
+        <a href="information.html">Враќање на кредит</a>
+        <a href="questions.html">Најчести прашања</a>
+        <a href="contact.html">Контакт</a>
+      </div>
+      <div>
+        <h4>Правно</h4>
+        <a href="terms-of-use.html">Општи услови</a>
+        <a href="personal-information.html">Лични податоци</a>
+        <a href="public-offer.html">Јавна понуда</a>
+        <a href="https://easyfinance.mk/Content/Files/%d0%a2%d0%b0%d1%80%d0%b8%d1%84%d0%bd%d0%b8%d0%ba.docx">Тарифник</a>
+      </div>
+      <div>
+        <h4>Контакт</h4>
+        <a href="tel:023113333">02/311-3333</a>
+        <a href="mailto:info@easyfinance.mk">info@easyfinance.mk</a>
+        <a href="contact.html">Ул. Даме Груев бр. 1, Скопје</a>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <span>© 2026 EasyFinance — ФД Еазу Фајнанс АД Скопје</span>
+      <span>ЕДБ 4080018574550 · ЕМБС 7286015[cite: 2]</span>
+    </div>
+  </div>
+</footer>
+<script src="about.js"></script>
+</body>
+</html>
